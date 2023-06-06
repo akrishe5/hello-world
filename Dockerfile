@@ -1,10 +1,14 @@
-FROM centos
-RUN yum install java -y
-RUN mkdir /opt/tomcat/
-WORKDIR /opt/tomcat
-ADD https://dlcdn.apache.org/tomcat/tomcat-9/v9.0.54/bin/apache-tomcat-9.0.54.tar.gz /opt/tomcat
-RUN tar xvfz apache*.tar.gz
-RUN mv apache-tomcat-9.0.54/* /opt/tomcat 
-EXPOSE 8080
-CMD ["/opt/tomcat/bin/catalina.sh", "run"]
+FROM python:latest
+# Any working directory can be chosen as per choice like '/' or '/home' etc
+# i have chosen /usr/app/src
+WORKDIR /usr/local
 
+#to COPY the remote file at working directory in container
+COPY test.py ./
+# Now the structure looks like this '/usr/app/src/test.py'
+
+
+#CMD instruction should be used to run the software
+#contained by your image, along with any arguments.
+
+CMD [ "python", "./test.py"]
